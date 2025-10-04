@@ -1,31 +1,35 @@
-import {useState,useEffect} from "react"
+import {useEffect,useState} from "react"
+const Answer=({ans,totalresult,index})=>{
 
-const Answer=({ans,index})=>{
-    const [heading,setheading]=useState(false)
-    const [answer,setanswer]=useState(ans);
+ const [heading,setheading]=useState(false);
+ const [output,setoutput]=useState(ans);
+ console.log(ans,index);
 
-    useEffect(()=>{
-
-   if(checkHeading(ans)){
+ useEffect(()=>{
+ if(checkheading(ans)){
     setheading(true);
-    setanswer(replacestar(ans));
-   }
+   setoutput(replaceheading(ans))
+ }
 
-    },[]);
+  },[])
+ 
 
-    function replacestar(str){
-    return str.replace(/^(\*)(\*)|(\*)$/g,'')
-}
-function checkHeading(str){
+  function checkheading(str){
     return /^(\*)(\*)(.*)\*$/.test(str)
-}
+ }
+ function replaceheading(str){
+    return  str.replace(/^(\*)(\*)|(\*)$/g,'')
+ }
 
-    return(
-        <>
-        
-        {heading?<span className="pt-2 text-lg block text-white ">{answer}</span>:
-        <span className="pl-5 ">{answer}</span>}
-        </>
+
+    return (
+     <>
+     {
+        index==0 && totalresult> 1?<span className="pt-2 text-xl block text-white text-3xl">{output}</span>:        heading?<span className="pt-2 text-lg block text-white text-3xl">{output}</span>:
+        <span className="pl-5 ">{output}</span>
+     }
+       
+     </>
     )
 }
 export default Answer
