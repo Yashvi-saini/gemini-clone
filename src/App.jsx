@@ -4,11 +4,13 @@ import { URL } from "./constants";
 import Answer from "./components/answer";
 import Welcome from "./components/welcome";
 import geminilogo from './assets/gemini_favicon.png'
+import Topbar from "./components/topbar"
 
 function App() {
   const [query, setQuery] = useState("");
   const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [model, setModel] = useState("flash");
   const id = useId();
 
   const user = "Yashvi";
@@ -53,6 +55,10 @@ function App() {
 
   return (
   <div className="flex flex-col h-screen bg-zinc-950 text-white">
+    <div className="flex flex-col h-screen bg-zinc-950 text-white">
+      <Topbar model={model} setModel={setModel} />
+      
+    
 
     {/* chat scrolling added */}
     <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
@@ -139,7 +145,9 @@ function App() {
         />
       </div>
     </div>
+    </div>
   </div>
+  
 );
 }
 export default App
