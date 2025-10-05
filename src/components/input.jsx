@@ -13,7 +13,7 @@ const Input = ({ query, setQuery, askQuestion }) => {
 
   return (
     <div className="sticky bottom-0 bg-[#0c0c0c] border-t border-zinc-900 px-4 py-4">
-      <div className="max-w-3xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         {/* Gemini-style container */}
         <div
           className="
@@ -51,7 +51,7 @@ const Input = ({ query, setQuery, askQuestion }) => {
                 text-[16px]
                 leading-6
                 overflow-hidden
-                min-h-[70px]
+                min-h-[40px]
                 max-h-[220px]
               "
               style={{
