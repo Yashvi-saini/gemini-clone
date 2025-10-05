@@ -1,10 +1,11 @@
-import { useState, useId,useEffect } from "react";
+import { useState, useId, useEffect } from "react";
 import "./App.css";
 import { URL } from "./constants";
 import Answer from "./components/answer";
 import Welcome from "./components/welcome";
-import geminilogo from './assets/gemini_favicon.png'
-import Topbar from "./components/topbar"
+import geminilogo from "./assets/gemini_favicon.png";
+import Topbar from "./components/topbar";
+import Input from "./components/input"; 
 
 function App() {
   const [query, setQuery] = useState("");
@@ -14,11 +15,12 @@ function App() {
   const id = useId();
 
   useEffect(() => {
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css";
-  document.head.appendChild(link);
-}, []);
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href =
+      "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css";
+    document.head.appendChild(link);
+  }, []);
 
   const user = "Yashvi";
 
@@ -50,129 +52,98 @@ function App() {
       { type: "q", text: query },
       { type: "a", text: dataString },
     ]);
- setTimeout(() => {
-  const chatContainer = document.querySelector(".chat-container");
-  if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
-}, 100);
 
+    setTimeout(() => {
+      const chatContainer = document.querySelector(".chat-container");
+      if (chatContainer) chatContainer.scrollTop = chatContainer.scrollHeight;
+    }, 100);
 
     setQuery("");
     setLoading(false);
   };
 
   return (
-  <div className="flex flex-col h-screen bg-zinc-950 text-white">
     <div className="flex flex-col h-screen bg-zinc-950 text-white">
       <Topbar model={model} setModel={setModel} />
-      
-    
 
-    {/* chat scrolling added */}
-    <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6">
-      <div className="max-w-2xl mx-auto space-y-4">
-        {result.length === 0 ? (
-          <Welcome user={user} />
-        ) : (
-          <ul className="space-y-4">
-            {result.map((item, index) => (
-              <div
-                key={index}
-                className={
-                  item.type === "q"
-                    ? "flex justify-end"
-                    : "flex items-start gap-2"
-                }
-              >
-                {item.type === "q" ? (
-                  <li className="text-right p-3 bg-zinc-700 rounded-2xl w-fit max-w-[80%]">
-                    <Answer
-                      ans={item.text}
-                      totalresult={1}
-                      index={index}
-                      type={item.type}
-                    />
-                  </li>
-                ) : (
-                  <div className="flex gap-2">
-                    <img
-                      src={geminilogo}
-                      alt="Gemini"
-                      className="w-8 h-8 rounded-full mt-1"
-                    />
-                    <div className="space-y-2">
-                      {item.text.map((ansitem, ansindex) => (
-                        <li
-                          key={ansindex}
-                          className="p-3 bg-zinc-800 rounded-2xl max-w-[80%]"
-                        >
-                          <Answer
-                            ans={ansitem}
-                            totalresult={item.text.length}
-                            index={ansindex}
-                            type={item.type}
-                          />
-                        </li>
-                      ))}
+      {/* Chat content */}
+      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 chat-container">
+        <div className="max-w-2xl mx-auto space-y-4">
+          {result.length === 0 ? (
+            <Welcome user={user} />
+          ) : (
+            <ul className="space-y-4">
+              {result.map((item, index) => (
+                <div
+                  key={index}
+                  className={
+                    item.type === "q"
+                      ? "flex justify-end"
+                      : "flex items-start gap-2"
+                  }
+                >
+                  {item.type === "q" ? (
+                    <li className="text-right p-3 bg-zinc-700 rounded-2xl w-fit max-w-[80%]">
+                      <Answer
+                        ans={item.text}
+                        totalresult={1}
+                        index={index}
+                        type={item.type}
+                      />
+                    </li>
+                  ) : (
+                    <div className="flex gap-2">
+                      <img
+                        src={geminilogo}
+                        alt="Gemini"
+                        className="w-8 h-8 rounded-full mt-1"
+                      />
+                      <div className="space-y-2">
+                        {item.text.map((ansitem, ansindex) => (
+                          <li
+                            key={ansindex}
+                            className="p-3 bg-zinc-800 rounded-2xl max-w-[80%]"
+                          >
+                            <Answer
+                              ans={ansitem}
+                              totalresult={item.text.length}
+                              index={ansindex}
+                              type={item.type}
+                            />
+                          </li>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Typing as gemini do */}
-            {loading && (
-              <div className="flex items-center gap-2">
-                <img
-                  src={geminilogo}
-                  alt="Gemini"
-                  className="w-8 h-8 rounded-full mt-1"
-                />
-                <div className="bg-zinc-800 px-4 py-2 rounded-2xl flex space-x-2">
-                  <span className="w-2 h-2 bg-white rounded-full animate-bounce"></span>
-                  <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-150"></span>
-                  <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-300"></span>
+                  )}
                 </div>
-              </div>
-            )}
-          </ul>
-        )}
-      </div>
-    </div>
-    
-    <div className="sticky bottom-0 bg-zinc-950 border-t border-zinc-900 px-4 py-6">
-      <div className="max-w-3xl mx-auto">
-        <div className="flex items-center justify-between bg-[#1e1f20] border border-zinc-800 rounded-[2rem] px-5 py-[14px] shadow-[inset_0_1px_4px_rgba(255,255,255,0.05)]">
-          {/* Left icons */}
-          <div className="flex items-center gap-4 text-gray-400 text-[17px]">
-            <button className="hover:text-white transition-colors">
-              <i className="fa-solid fa-plus"></i>
-            </button>
-            <button className="hover:text-white transition-colors">
-              <i className="fa-solid fa-sliders"></i>
-            </button>
-          </div>
+              ))}
 
-          {/* Input */}
-          <input
-            type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && askQuestion()}
-            placeholder="Ask Gemini"
-            className="flex-1 mx-4 bg-transparent text-white placeholder-gray-400 outline-none text-[16px] text-center"
-          />
-
-          {/* Mic icon */}
-          <button className="text-gray-400 text-[18px] hover:text-white transition-colors">
-            <i className="fa-solid fa-microphone"></i>
-          </button>
+              {/* Loading dots like Gemini */}
+              {loading && (
+                <div className="flex items-center gap-2">
+                  <img
+                    src={geminilogo}
+                    alt="Gemini"
+                    className="w-8 h-8 rounded-full mt-1"
+                  />
+                  <div className="bg-zinc-800 px-4 py-2 rounded-2xl flex space-x-2">
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce"></span>
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-150"></span>
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-300"></span>
+                  </div>
+                </div>
+              )}
+            </ul>
+          )}
         </div>
       </div>
+
+      {/* Gemini-style Input */}
+      <Input query={query} setQuery={setQuery} askQuestion={askQuestion} />
     </div>
- 
-    </div>
-  </div>
-  
-);
+  );
 }
-export default App
+
+export default App;
+
+
