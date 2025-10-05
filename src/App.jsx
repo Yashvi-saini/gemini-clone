@@ -63,11 +63,11 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-zinc-950 text-white">
+    <div className="flex flex-col h-screen bg-zinc-950 text-white overflow-hidden">
       <Topbar model={model} setModel={setModel} />
 
       {/* Chat content */}
-      <div className="flex-1 overflow-y-auto px-4 sm:px-6 py-6 chat-container">
+      <div className="flex-1 overflow-y-auto  overflow-x-hidden px-4  py-6 chat-container bg-[#1a1c1d]">
         <div className="max-w-2xl mx-auto space-y-4">
           {result.length === 0 ? (
             <Welcome user={user} />
@@ -118,7 +118,7 @@ function App() {
                 </div>
               ))}
 
-              {/* Loading dots like Gemini */}
+              {/* thinking Gemini */}
               {loading && (
                 <div className="flex items-center gap-2">
                   <img
@@ -126,10 +126,8 @@ function App() {
                     alt="Gemini"
                     className="w-8 h-8 rounded-full mt-1"
                   />
-                  <div className="bg-zinc-800 px-4 py-2 rounded-2xl flex space-x-2">
-                    <span className="w-2 h-2 bg-white rounded-full animate-bounce"></span>
-                    <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-150"></span>
-                    <span className="w-2 h-2 bg-white rounded-full animate-bounce delay-300"></span>
+                  <div className="bg-blue-600 px-4 py-1.5 rounded-xl text-white text-sm animate-pulse">
+                    Thinking..
                   </div>
                 </div>
               )}

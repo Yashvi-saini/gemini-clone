@@ -19,7 +19,7 @@ const Topbar = ({ model, setModel }) => {
         `}
       </style>
 
-      <div className="bg-[#1f1f1f] border-b border-[#3a3b3d] px-4 py-3 sticky top-0 z-50">
+      <div className="bg-[#1a1c1d] px-4 py-3 sticky top-0 z-50">
         <div className="w-full flex justify-between items-start google-sans px-6">
           
           

@@ -1,1 +1,8 @@
+.chat-container::-webkit-scrollbar{
+   display:none;
+}
+.chat-container {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;      
+}
 
