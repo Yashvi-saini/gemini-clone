@@ -1,4 +1,4 @@
-import { useState, useId } from "react";
+import { useState, useId,useEffect } from "react";
 import "./App.css";
 import { URL } from "./constants";
 import Answer from "./components/answer";
@@ -12,6 +12,13 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [model, setModel] = useState("flash");
   const id = useId();
+
+  useEffect(() => {
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css";
+  document.head.appendChild(link);
+}, []);
 
   const user = "Yashvi";
 
@@ -131,20 +138,38 @@ function App() {
         )}
       </div>
     </div>
+    
+    <div className="sticky bottom-0 bg-zinc-950 border-t border-zinc-900 px-4 py-6">
+      <div className="max-w-3xl mx-auto">
+        <div className="flex items-center justify-between bg-[#1e1f20] border border-zinc-800 rounded-[2rem] px-5 py-[14px] shadow-[inset_0_1px_4px_rgba(255,255,255,0.05)]">
+          {/* Left icons */}
+          <div className="flex items-center gap-4 text-gray-400 text-[17px]">
+            <button className="hover:text-white transition-colors">
+              <i className="fa-solid fa-plus"></i>
+            </button>
+            <button className="hover:text-white transition-colors">
+              <i className="fa-solid fa-sliders"></i>
+            </button>
+          </div>
 
-    {/* input at bottom */}
-    <div className="bg-zinc-900 border-t border-zinc-800 p-4 sticky bottom-0">
-      <div className="max-w-2xl mx-auto bg-zinc-800 rounded-2xl px-4 py-3 flex items-center">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && askQuestion()}
-          placeholder="Ask Gemini"
-          className="w-full bg-transparent outline-none text-white placeholder-gray-400 resize-none"
-        />
+          {/* Input */}
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && askQuestion()}
+            placeholder="Ask Gemini"
+            className="flex-1 mx-4 bg-transparent text-white placeholder-gray-400 outline-none text-[16px] text-center"
+          />
+
+          {/* Mic icon */}
+          <button className="text-gray-400 text-[18px] hover:text-white transition-colors">
+            <i className="fa-solid fa-microphone"></i>
+          </button>
+        </div>
       </div>
     </div>
+ 
     </div>
   </div>
   
