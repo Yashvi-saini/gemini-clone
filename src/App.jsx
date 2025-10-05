@@ -83,7 +83,7 @@ function App() {
                   }
                 >
                   {item.type === "q" ? (
-                    <li className="text-right p-3 bg-zinc-700 rounded-2xl w-fit max-w-[80%]">
+                    <li className="text-right p-3 bg-zinc-700 rounded-bl-2xl rounded-br-2xl rounded-tl-2xl w-fit max-w-[80%] overflow-y-auto break-words">
                       <Answer
                         ans={item.text}
                         totalresult={1}
